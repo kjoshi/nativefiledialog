@@ -185,7 +185,7 @@ nfdresult_t NFD_OpenDialog( const char *filterList,
                                           "_Cancel", GTK_RESPONSE_CANCEL,
                                           "_Open", GTK_RESPONSE_ACCEPT,
                                           NULL );
-    if ( folder == 1 ) {
+    if ( folders == 1 ) {
         gtk_widget_destroy(dialog);
         dialog = gtk_file_chooser_dialog_new( "Open File",
                                               NULL,
