@@ -9,7 +9,7 @@
 int main( void )
 {
     nfdchar_t *outPath = NULL;
-    nfdresult_t result = NFD_OpenDialog( "png,jpg;pdf", NULL, &outPath );
+    nfdresult_t result = NFD_OpenDialog( "png,jpg;pdf", NULL, &outPath, 1 );
     if ( result == NFD_OKAY )
     {
         puts("Success!");
