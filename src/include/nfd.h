@@ -38,7 +38,8 @@ typedef enum {
 /* single file open dialog */    
 nfdresult_t NFD_OpenDialog( const nfdchar_t *filterList,
                             const nfdchar_t *defaultPath,
-                            nfdchar_t **outPath );
+                            nfdchar_t **outPath,
+                            int folders);
 
 /* multiple file open dialog */    
 nfdresult_t NFD_OpenDialogMultiple( const nfdchar_t *filterList,

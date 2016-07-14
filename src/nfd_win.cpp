@@ -352,7 +352,8 @@ static nfdresult_t SetDefaultPath( IFileDialog *dialog, const char *defaultPath 
 
 nfdresult_t NFD_OpenDialog( const char *filterList,
                             const nfdchar_t *defaultPath,
-                            nfdchar_t **outPath )
+                            nfdchar_t **outPath,
+                            int folders)
 {
     nfdresult_t nfdResult = NFD_ERROR;
     
@@ -372,6 +373,22 @@ nfdresult_t NFD_OpenDialog( const char *filterList,
     result = ::CoCreateInstance(::CLSID_FileOpenDialog, NULL,
                                 CLSCTX_ALL, ::IID_IFileOpenDialog,
                                 reinterpret_cast<void**>(&fileOpenDialog) );
+
+    if ( SUCCEEDED(result) && folders == 1 ) {
+        DWORD dwFlags;
+        result = fileOpenDialog->GetOptions(&dwFlags);
+        if ( !SUCCEEDED(result) )
+        {
+            NFDi_SetError("Could not get options.");
+            goto end;
+        }
+        result = fileOpenDialog->SetOptions(dwFlags | FOS_PICKFOLDERS);
+        if ( !SUCCEEDED(result) )
+        {
+            NFDi_SetError("Could not set options.");
+            goto end;
+        }
+    }
                                 
     if ( !SUCCEEDED(result) )
     {

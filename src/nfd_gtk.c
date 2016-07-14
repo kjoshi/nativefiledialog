@@ -167,7 +167,8 @@ static void WaitForCleanup(void)
 
 nfdresult_t NFD_OpenDialog( const char *filterList,
                             const nfdchar_t *defaultPath,
-                            nfdchar_t **outPath )
+                            nfdchar_t **outPath,
+                            int folders)
 {    
     GtkWidget *dialog;
     nfdresult_t result;
@@ -184,6 +185,15 @@ nfdresult_t NFD_OpenDialog( const char *filterList,
                                           "_Cancel", GTK_RESPONSE_CANCEL,
                                           "_Open", GTK_RESPONSE_ACCEPT,
                                           NULL );
+    if ( folder == 1 ) {
+        dialog = gtk_file_chooser_dialog_new( "Open File",
+                                              NULL,
+                                              GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER,
+                                              "_Cancel", GTK_RESPONSE_CANCEL,
+                                              "_Open", GTK_RESPONSE_ACCEPT,
+                                              NULL );
+    }
+
 
     /* Build the filter list */
     AddFiltersToDialog(dialog, filterList);

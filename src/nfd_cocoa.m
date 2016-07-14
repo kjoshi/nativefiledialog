@@ -119,12 +119,17 @@ static nfdresult_t AllocPathSet( NSArray *urls, nfdpathset_t *pathset )
 
 nfdresult_t NFD_OpenDialog( const char *filterList,
                             const nfdchar_t *defaultPath,
-                            nfdchar_t **outPath )
+                            nfdchar_t **outPath,
+                            int folders)
 {
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     
     NSOpenPanel *dialog = [NSOpenPanel openPanel];
     [dialog setAllowsMultipleSelection:NO];
+    if(folders==1) {
+        [dialog setCanChooseFiles:NO];
+        [dialog setCanChooseDirectories:YES];
+    }
 
     // Build the filter list
     AddFilterListToDialog(dialog, filterList);
@@ -154,7 +159,6 @@ nfdresult_t NFD_OpenDialog( const char *filterList,
 
     return nfdResult;
 }
-
 
 nfdresult_t NFD_OpenDialogMultiple( const nfdchar_t *filterList,
                                     const nfdchar_t *defaultPath,
